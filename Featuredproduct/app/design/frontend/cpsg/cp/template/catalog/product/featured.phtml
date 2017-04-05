@@ -1,0 +1,59 @@
+<?php $featuredProducts = $this->getFeaturedProduct(); ?>
+<h2 class="title mv40"><span class="text-underline">Featured Products</span></h2>
+<div class="row js-product_cart">
+    <?php
+    foreach ($featuredProducts as $product) {
+        $_formattedSpecialPrice = Mage::helper('core')->currency($product->getSpecialPrice(), true, false);
+        $ratings = $this->getProductRatings($product->getId());
+        ?>
+        <div class="col-md-3 col-xs-6  product">
+            <figure class="product-img">
+                <a title="<?php echo $product->getName(); ?>" href="<?php echo $product->getProductUrl() ?>">
+                    <img src="<?php echo Mage::helper('catalog/image')->init($product, 'image')->resize(162, 240); ?>" alt="<?php echo $product->getName(); ?>">
+                </a>
+                <div class="onhover">
+                    <div class="product-form">
+                        <a class="btn btn-block btn-viewdetails" href="<?php echo $product->getProductUrl() ?>"><i class="cp-zoom"></i> View details</a>
+                        <div class="input-group">
+                            <span class="input-group-addon">QTY:</span>
+                            <input class="form-control" name="qty" value="1" readonly>
+                            <div class="input-group-btn">
+                                <button class="btn btn-block btn-xs btn-plus f-plus" value="<?php echo $product->getSku(); ?>" type="button" name="plus"></button>
+                                <button class="btn btn-block btn-xs btn-minus f-minus" value="<?php echo $product->getSku(); ?>" type="button" name="minus"></button>
+                            </div>
+                        </div>
+                        <?php if ($product->isSaleable()): ?>
+                            <a class="btn btn-block btn-addtocart f-cart" href="" ><i class="cp-cart"></i> Add to cart</a>
+                        <?php else : ?>
+                            <span class="btn btn-block btn-addtocart"><?php echo $this->__('Out of Stock') ?></span>	
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </figure>
+            <a class="product-title" href="<?php echo $product->getProductUrl() ?>"><?php echo $product->getName(); ?></a>
+            <div class="rating has-1star">
+                <?php if ($ratings): ?>
+                    <div class="ratings">
+                        <div class="rating-box">
+                            <div class="rating" style="width:<?php echo $ratings; ?>%"></div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="product-price">
+                <?php if (!is_null($product->getSpecialPrice())): ?>
+                    <span class="product-price total"><?php echo $_formattedSpecialPrice; ?></span>
+                    <span class="product-price subtotal"><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></span>
+                <?php else: ?>	
+                    <span class="product-price total"><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></span> 
+                <?php endif; ?>	
+                <?php $_product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore()->getId())->load($product->getId()); ?>
+                <span class="discount" style="background-color: <?php echo $_product->getPromotionalColor();?>;"> <?php echo $_product->getAttributeText('promotional_label') ?></span>
+            </div>
+
+        </div>
+    <?php } ?>
+</div>
+<div class="text-center mt35 mb70">
+    <a class="btn btn-showall" href="<?php echo Mage::getBaseUrl(); ?>our-products.html">Show all <span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <SATech_Featuredproduct>
+            <version>0.1.1</version>
+        </SATech_Featuredproduct>
+    </modules>
+    <global>
+        <helpers>
+            <featuredproduct>
+                <class>SATech_Featuredproduct_Helper</class>
+            </featuredproduct>
+        </helpers>
+        <blocks>
+            <featuredproduct>
+                <class>SATech_Featuredproduct_Block</class>
+            </featuredproduct>
+        </blocks>
+        <models>
+            <featuredproduct>
+                <class>SATech_Featuredproduct_Model</class>
+            </featuredproduct>
+        </models>
+        <resources>
+            <featuredproduct_setup>
+                <setup>
+                    <module>SATech_Featuredproduct</module>
+                    <class>SATech_Featuredproduct_Model_Resource_Setup</class>
+                </setup>
+            </featuredproduct_setup>
+        </resources>
+    </global>
+</config>
